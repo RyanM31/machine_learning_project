@@ -10,5 +10,11 @@
 
 heroku
 email id:ryanmathew45@gmail.com
-api key:e1ee3daa-b352-4ad3-af82-52deadec6c60
+api key:
 app name:ml-regression-app-34 
+
+docker image
+docker build -t <image_name>:<tagname>
+note docker image name should be in lowecase letters
+TO LIST DOCKER IMAGES
+docker images
