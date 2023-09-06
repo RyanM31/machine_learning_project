@@ -1,4 +1,4 @@
-from housing.config.configuratin import Configuration
+from housing.config.configuration import Configuration
 from housing.logger import logging
 from housing.exception import HousingException
 from housing.entity.artifact_entity import DataIngestionArtifact
@@ -7,7 +7,7 @@ from housing.component.data_ingestion import DataIngestion
 import os,sys
 
 
-class Pipline:
+class Pipeline:
     def __init__(self,config: Configuration=Configuration()) -> None:
         try:
             self.config=config
@@ -19,7 +19,7 @@ class Pipline:
             data_ingestion = DataIngestion(data_ingestion_config=self.config.get_data_ingestion_config())
             return data_ingestion.intiate_data_ingestion()
         except Exception as e:
-            raise HousingException from e
+            raise HousingException(e,sys) from e
         
     def start_data_validation(self):
         pass
@@ -35,7 +35,7 @@ class Pipline:
     
     def start_model_pusher(self):
         pass
-    
+
     def run_pipeline(self):
         try:
             # data ingestion

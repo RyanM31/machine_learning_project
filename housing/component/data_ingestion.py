@@ -27,7 +27,7 @@ class DataIngestion:
                 os.remove(tgz_download_dir)
             os.makedirs(tgz_download_dir,exist_ok=True)
             housing_file_name = os.path.basename(download_url)
-            tgz_file_path= os.path.basename(tgz_download_dir, housing_file_name)
+            tgz_file_path= os.path.join(tgz_download_dir, housing_file_name)
             logging.info(f"Downloading file from:[{download_url}] into :[{tgz_file_path}]")
             urllib.request.urlretrieve(download_url, tgz_file_path)
             logging.info(f"file:[{tgz_file_path}] has been downladed successfully")
@@ -46,7 +46,7 @@ class DataIngestion:
         except Exception as e:
             raise HousingException(sys,e) from e
    
-    def split_data_as_train(self)-> DataIngestionArtifact:
+    def split_data_as_train_test(self)-> DataIngestionArtifact:
         try:
             raw_data_dir =  self.data_ingestion_config.raw_data_dir
             file_name= os.listdir(raw_data_dir)[0]
@@ -87,10 +87,10 @@ class DataIngestion:
     def intiate_data_ingestion(self)-> DataIngestionArtifact:
         try:
             tgz_file_path= self.download_housing_data()
-            self.extract_tgz_file(tgz_file_path)
+            self.extract_tgz_file(tgz_file_path=tgz_file_path)
             return self.split_data_as_train_test()
         except Exception as e:
             raise HousingException(e,sys) from e
 
     def __del__(self):
-        logging.info(f"{'=',*20} Data Ingestion log is completed.{'=',*20}\n\n")    
+        logging.info(f"{'='*20} Data Ingestion log is completed.{'='*20}  \n\n")    
